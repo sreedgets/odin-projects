@@ -55,21 +55,27 @@ function Book(title, author, pages, read) {
 //display library
 
 function showLib() {
+    //set the contents of the section element to nothing.
     document.querySelector('section').innerText = '';
     myLibrary.forEach((obj) => {
         const section = document.querySelector('section');
         const card = document.createElement("div");
-        const button = document.createElement('button');
-        button.textContent = 'delete';
-        button.className = 'delete-book';
+        const deleteButton = document.createElement('button');
+        deleteButton.textContent = 'delete';
+        deleteButton.className = 'delete-book';
+        const toggleRead = document.createElement('button');
+        toggleRead.textContent = 'toggle read status';
+        toggleRead.className = 'toggle-read';
 
+        //this code could've used a comment explaining what it does
         card.setAttribute('data-book-num', myLibrary.indexOf(obj));
         for (let property in obj) {
             let p = document.createElement("p");
             p.textContent = obj[property];
             card.appendChild(p);
         }
-        card.appendChild(button);
+        card.appendChild(toggleRead);
+        card.appendChild(deleteButton);
         section.appendChild(card);
     });
 }
@@ -86,6 +92,7 @@ function addBook() {
 
     myLibrary.push(newBook);
     showLib();
+    addDeleteBtn();
 }
 
 const submitBook = document.querySelector('#add-book');
@@ -94,29 +101,27 @@ submitBook.addEventListener('click', addBook);
 //Delete book from library
 let getDeleteBtn = document.getElementsByClassName('delete-book');
 
-getDeleteBtn.forEach(button => {
-    button.addEventListener('click', thisBook);
-});
+function addDeleteBtn() {
+    Array.from(getDeleteBtn).forEach( element => {
+        element.addEventListener('click', thisBook);
+    });
+}
+
+addDeleteBtn();
 
 function thisBook(obj) {
     //Get parent element of button
-    const button = obj.target.parentNode;
-    console.log(button);
+    const book = obj.target.parentNode;
+
+    const bookNum = book.getAttribute('data-book-num');
+    myLibrary.splice(bookNum, 1);
+    showLib();
+    addDeleteBtn();
 }
 
-/*
-const deleteBook = document.querySelector('.delete-book');
-
-function thisBook(obj) {
-    //Get parent element of button
-    const button = obj.target.parentNode;
-    console.log(button);
-}
-
-deleteBook.addEventListener('click', thisBook);
-*/
-/* NOTES
--the click event listener is only applied to the first delete button rn. use getElementsByClassName to return the elements as an array then apply the event listener through iteration.
+/* NOTES/Changelog
+X- After adding a book, none of the delete buttons work. | turned the code that added event listeners onto the delete button into a function. Added function call to the addBook function so the library AND event listeners are refreshed.
+X- the click event listener is only applied to the first delete button rn. use getElementsByClassName to return the elements as an array then apply the event listener through iteration.
 
 - Currently I'm adding the delete buttons through JS. Feels like crossing code.
  */
