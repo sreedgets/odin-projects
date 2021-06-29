@@ -28,19 +28,19 @@ let myLibrary = [
         title: 'Black Leopard, Red Wolf',
         author: 'Marlon James',
         pages: 640,
-        read: "Haven't read"
+        read: "no"
     },
     {
         title: 'Vinland Saga Book 2',
         author: 'Makoto Yukimura',
         pages: 432,
-        read: 'Haven\'t read yet'
+        read: 'yes'
     },
     {
         title: 'Sex, Drugs, and Tales of Wonder',
         author: 'Yanko Tsvetkov',
         pages: 123,
-        read: 'Haven\'t read'
+        read: 'no'
     }
 ];
 
@@ -67,15 +67,19 @@ function showLib() {
         toggleRead.textContent = 'toggle read status';
         toggleRead.className = 'toggle-read';
 
-        //this code could've used a comment explaining what it does
+        //set the data-book-num attribute of the DOM element to it's index position in the library array.
         card.setAttribute('data-book-num', myLibrary.indexOf(obj));
+        //add each property value of the object to the "card" <div> as a <p>
         for (let property in obj) {
             let p = document.createElement("p");
             p.textContent = obj[property];
             card.appendChild(p);
         }
+        //add the button to toggle read status
         card.appendChild(toggleRead);
+        //add the delete button
         card.appendChild(deleteButton);
+        //append the book card to <section>
         section.appendChild(card);
     });
 }
@@ -117,9 +121,38 @@ function thisBook(obj) {
     myLibrary.splice(bookNum, 1);
     showLib();
     addDeleteBtn();
+    addReadToggle();
+}
+
+//Toggle read status
+let haveReadTog = document.getElementsByClassName('toggle-read');
+
+function addReadToggle() {
+    Array.from(haveReadTog).forEach( e => {
+        e.addEventListener('click', changeReadStatus);
+    });
+}
+
+addReadToggle();
+
+function changeReadStatus(obj) {
+    const book = obj.target.parentNode;
+    const bookNum = book.getAttribute('data-book-num');
+    const readStatus = myLibrary[bookNum].read;
+
+    if (readStatus === 'yes') {
+        readStatus === 'no';
+    } else {
+        readStatus === 'yes';
+    }
+    console.log(readStatus);
+    showLib();
+    addReadToggle();
 }
 
 /* NOTES/Changelog
+-Confirm that the instance changes it's read value. change value in DOM.
+X-Locate the book in the array and check its read status, then toggle the status. Display new status in dom.
 X- After adding a book, none of the delete buttons work. | turned the code that added event listeners onto the delete button into a function. Added function call to the addBook function so the library AND event listeners are refreshed.
 X- the click event listener is only applied to the first delete button rn. use getElementsByClassName to return the elements as an array then apply the event listener through iteration.
 
