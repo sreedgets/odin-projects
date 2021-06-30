@@ -138,14 +138,13 @@ addReadToggle();
 function changeReadStatus(obj) {
     const book = obj.target.parentNode;
     const bookNum = book.getAttribute('data-book-num');
-    const readStatus = myLibrary[bookNum].read;
 
-    if (readStatus === 'yes') {
-        readStatus === 'no';
-    } else {
-        readStatus === 'yes';
+    if (myLibrary[bookNum].read === 'yes') {
+        myLibrary[bookNum].read = 'no';
+    } else if (myLibrary[bookNum].read === 'no') {
+        myLibrary[bookNum].read = 'yes'
     }
-    console.log(readStatus);
+    console.log(myLibrary[bookNum].read);
     showLib();
     addReadToggle();
 }
