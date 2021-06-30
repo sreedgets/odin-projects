@@ -150,7 +150,7 @@ function changeReadStatus(obj) {
 }
 
 /* NOTES/Changelog
--Confirm that the instance changes it's read value. change value in DOM.
+X-Confirm that the instance changes it's read value. change value in DOM.
 X-Locate the book in the array and check its read status, then toggle the status. Display new status in dom.
 X- After adding a book, none of the delete buttons work. | turned the code that added event listeners onto the delete button into a function. Added function call to the addBook function so the library AND event listeners are refreshed.
 X- the click event listener is only applied to the first delete button rn. use getElementsByClassName to return the elements as an array then apply the event listener through iteration.
