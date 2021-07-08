@@ -1,9 +1,26 @@
 //Gameboard object
 const gameboard = (() => {
-    let gameGrid = ['X', 'O',,, 'X',, 'O',,,];
+    let _gameGrid = ['X', 'O',,, 'X',, 'O',,,];
 
-    return {gameGrid};
+    const getGameGrid = (() => {
+        return _gameGrid;
+    })();
+
+    const resetGameGrid = () => {
+        _gameGrid = [,,,,,,,,];
+    }
+
+    const setPiece = ( box, sign ) => {
+        _gameGrid[box] = sign;
+    }
+
+    return {getGameGrid, resetGameGrid, setPiece};
 })();
+
+//Display controller object
+const displayController = (() => {
+})();
+
 
 //Handles the game's logic. Checks for win conditions.
 const gameController = (() => {
@@ -14,4 +31,6 @@ const gameController = (() => {
 const player = () => {
 
 };
+
+
 
