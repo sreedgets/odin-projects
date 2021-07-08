@@ -19,6 +19,7 @@ const gameboard = (() => {
 
 //Display controller object
 const displayController = (() => {
+
 })();
 
 
@@ -33,4 +34,51 @@ const player = () => {
 };
 
 
+//Scratchpad
+///////////////////////////////////////////////////////////////////////////
+
+const buttonController = (() => {
+    const _button = document.querySelector('button.cwosant');
+
+    const hitIt = (() => {
+        _button.addEventListener('click', () => {
+            console.log('got eet');
+        });
+    })(); 
+
+    const getButton = () => {
+        return _button;
+    };
+
+    return {getButton, hitIt};
+})();
+
+const boxes = document.querySelectorAll('div.box');
+let boxesArr = Array.from(boxes);
+let i = 0;
+boxesArr.forEach(box => {
+    box.textContent = gameboard.getGameGrid[i];
+    i++
+});
+
+
+/*
+for (let i = 0; i < boxesArr.length; i++) {
+    boxesArr[i].textContent = gameboard.getGameGrid[i];
+}
+
+const buttonController = (() => {
+    const _button = document.querySelector('button.cwosant');
+
+    _button.addEventListener('click', () => {
+        console.log('got eet');
+    });
+
+    const getButton = () => {
+        return _button;
+    };
+
+    return {getButton};
+})();
+*/
 
