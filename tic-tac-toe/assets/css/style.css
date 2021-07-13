@@ -18,3 +18,9 @@ table { border-collapse: collapse; border-spacing: 0;}
     width: 80px;
     height: 80px;
 }
+
+.box:hover {
+    background-color: gray;
+    color: white;
+    cursor: pointer;
+}
