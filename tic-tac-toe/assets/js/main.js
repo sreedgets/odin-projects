@@ -63,7 +63,7 @@ const gameController = (() => {
         }
         return false;
     }
-
+    /*
     const _checkColumns = (board) => {
         for (let i = 0; i < 3; i++) {
             let column = [];
@@ -76,12 +76,24 @@ const gameController = (() => {
         }
         return false;
     }
+    */
+    const _checkColumns = (board) => {
+        const col1 = [gameboard.getGameGrid(0), gameboard.getGameGrid(3), gameboard.getGameGrid(6)];
+        const col2 = [gameboard.getGameGrid(1), gameboard.getGameGrid(4), gameboard.getGameGrid(7)];
+        const col3 = [gameboard.getGameGrid(2), gameboard.getGameGrid(5), gameboard.getGameGrid(8)];
+
+        if (col1.every(e => e === 'X') || col2.every(e => e === 'X') || col3.every(e => e === 'X')) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     const _checkDiagonal = (board) => {
         const diag1 = [gameboard.getGameGrid(0), gameboard.getGameGrid(4), gameboard.getGameGrid(8)];
         const diag2 = [gameboard.getGameGrid(2), gameboard.getGameGrid(4), gameboard.getGameGrid(6)];
 
-        if (diag1.every(e => e === 'X') || diag2.every(e => e === 'O')) {
+        if (diag1.every(e => e === 'X') || diag1.every(e => e === 'O') || diag2.every(e => e === 'X') || diag2.every(e => e === 'O')) {
             return true;
         } else {
             return false;
@@ -89,7 +101,7 @@ const gameController = (() => {
     }
 
     const checkWin = board => {
-        if (_checkRows(board) || _checkDiagonal(board)) {
+        if (_checkColumns(board)) {
             return true;
         } else {
             return false;
@@ -133,4 +145,4 @@ const winCons = [
 //If roundCounter hits 9 then match is a draw
 
 //When checking columns, one X in spot 8 counts as a win
-//not picking up 2,4,6 diagonal wins
+//When checking columns, an x in only 4 and 7 counts as a win
