@@ -11,9 +11,13 @@ const gameboard = (() => {
     };
 
     const setPiece = ( box, sign ) => {
-        _gameGrid[box] = sign;
-        setBoard();
-        console.log(gameController.checkWin(gameboard));
+        if (!_gameGrid[box]) {
+            _gameGrid[box] = sign;
+            setBoard();
+            console.log(gameController.checkWin(gameboard));
+        } else {
+            console.log('Pick a different spot');
+        }  
     };
 
     const setBoard = () => {
@@ -63,11 +67,11 @@ const gameController = (() => {
         }
         return false;
     }
-    /*
+    
     const _checkColumns = (board) => {
         for (let i = 0; i < 3; i++) {
             let column = [];
-            for (let j = i; j < 3; j++) {
+            for (let j = 0; j < 3; j++) {
                 column.push(board.getGameGrid(i + 3 * j));
             }
             if (column.every(e => e === 'X') || column.every(e => e === 'O')) {
@@ -76,19 +80,7 @@ const gameController = (() => {
         }
         return false;
     }
-    */
-    const _checkColumns = (board) => {
-        const col1 = [gameboard.getGameGrid(0), gameboard.getGameGrid(3), gameboard.getGameGrid(6)];
-        const col2 = [gameboard.getGameGrid(1), gameboard.getGameGrid(4), gameboard.getGameGrid(7)];
-        const col3 = [gameboard.getGameGrid(2), gameboard.getGameGrid(5), gameboard.getGameGrid(8)];
-
-        if (col1.every(e => e === 'X') || col2.every(e => e === 'X') || col3.every(e => e === 'X')) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
+    
     const _checkDiagonal = (board) => {
         const diag1 = [gameboard.getGameGrid(0), gameboard.getGameGrid(4), gameboard.getGameGrid(8)];
         const diag2 = [gameboard.getGameGrid(2), gameboard.getGameGrid(4), gameboard.getGameGrid(6)];
@@ -101,7 +93,7 @@ const gameController = (() => {
     }
 
     const checkWin = board => {
-        if (_checkColumns(board)) {
+        if (_checkRows(board) || _checkColumns(board) || _checkDiagonal(board)) {
             return true;
         } else {
             return false;
@@ -130,19 +122,5 @@ const gameController = (() => {
 //Scratchpad
 ///////////////////////////////////////////////////////////////////////////
 
-//Check for wincons after each play
-const winCons = [
-    [0,1,2],
-    [3,4,5],
-    [6,7,8],
-    [0,3,6],
-    [1,4,7],
-    [2,5,8],
-    [0,4,8],
-    [2,4,6]
-];
 
 //If roundCounter hits 9 then match is a draw
-
-//When checking columns, one X in spot 8 counts as a win
-//When checking columns, an x in only 4 and 7 counts as a win
