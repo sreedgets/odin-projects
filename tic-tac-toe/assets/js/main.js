@@ -10,11 +10,20 @@ const gameboard = (() => {
         _gameGrid = [,,,,,,,,];
     };
 
+    //Handles the logic for playing a round of the game
     const setPiece = ( box, sign ) => {
         if (!_gameGrid[box]) {
             _gameGrid[box] = sign;
             setBoard();
-            console.log(gameController.checkWin(gameboard));
+            //checking for wins
+            if ( gameController.checkWin(gameboard) ) {
+                console.log(`Player ${sign} wins!`);
+              //checking for draws
+            } else if (gameController.getRound() === 9) {
+                console.log('The game is a draw!');
+            }
+            gameController.increaseRound();
+            gameController.switchCurrentPlayer();
         } else {
             console.log('Pick a different spot');
         }  
@@ -48,11 +57,20 @@ const Player = (sign) => {
 //Handles the game's logic. Checks for win conditions.
 const gameController = (() => {
     let _player1 = Player('X');
-    let _playerAi = Player('O');
+    let _player2 = Player('O');
+    let _currentPlayer = _player1; //set _player1 as default
     let _roundCounter = 1;
     let _boxes = document.querySelectorAll('div.box');
     let _boxesArr = Array.from(_boxes);
     const _resetButton = document.querySelector('button.cwosant');
+
+    const increaseRound = () => {
+        _roundCounter++;
+    }
+
+    const getRound = () => {
+        return _roundCounter;
+    }
 
     const _checkRows = (board) => {
         for (let i = 0; i < 3; i++) {
@@ -99,12 +117,21 @@ const gameController = (() => {
             return false;
         }
     }
+
+    const switchCurrentPlayer = () => {
+        if (_currentPlayer === _player1) {
+            _currentPlayer = _player2;
+        } else {
+            _currentPlayer = _player1;
+        }
+    }
+
     //Adds event listeners for boxes and reset button and sets up the board.
     const init = (() => {
         for (let i = 0; i < _boxesArr.length; i++) {
             _boxesArr[i].addEventListener('click', () => {
         
-                gameboard.setPiece(i, _player1.getPlayerSign());
+                gameboard.setPiece(i, _currentPlayer.getPlayerSign());
             });
         }
 
@@ -115,12 +142,5 @@ const gameController = (() => {
 
         gameboard.setBoard();
     })();
-    return {checkWin};
+    return {checkWin, switchCurrentPlayer, getRound, increaseRound};
 })();
-
-
-//Scratchpad
-///////////////////////////////////////////////////////////////////////////
-
-
-//If roundCounter hits 9 then match is a draw
