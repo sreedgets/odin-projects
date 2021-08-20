@@ -1,4 +1,4 @@
-const dropdownInit = (() => {
+const dropdownMenu = (() => {
     //querySelectorAll returns a Nodelist (static array like object)
     const getDropdowns = document.querySelectorAll('.dropdown-toggle');
 
@@ -14,38 +14,46 @@ const dropdownInit = (() => {
 
 
 const slideShow = (() => {
+    let timer = setTimeout(nextSlide, 5000);
     let slideIndex = 0;
+
     //add event listeners to arrows
     const getPrev = document.querySelector('.prev-arrow');
-    const getNext = document.querySelector('.next-arrow');
-    const getDots = document.getElementsByClassName('dot');
-
     getPrev.addEventListener('click', prevSlide);
+
+    const getNext = document.querySelector('.next-arrow');
     getNext.addEventListener('click', nextSlide);
 
-    //convert getDots htmlcollection to array
-    let dotsArr = Array.from(getDots);
+    const getDots = document.getElementsByClassName('dot');
+    let dotsArr = Array.from(getDots); //convert getDots htmlcollection to array
 
     dotsArr.forEach(dot => {
         dot.addEventListener('click', () => {
             let index = dotsArr.indexOf(dot);
-            console.log(index);
+            pickSlide(index);
         });
     });
 
     //slideshow control logic
     function prevSlide() {
-        showSlide(-1);
+        slideIndex += -1;
+        showSlide(slideIndex);
     }
 
     function nextSlide() {
-        showSlide(1);
+        slideIndex += 1;
+        showSlide(slideIndex);
+    }
+
+    function pickSlide(i) {
+        slideIndex = i;
+        showSlide(slideIndex);
     }
 
     function showSlide(i) {
+        clearTimeout(timer);
         //collect slides into a nodelist
         const getSlides = document.querySelectorAll('.slide');
-        slideIndex = slideIndex += i;
 
         //check if we're moving to a slide that doesnt exist
         if (slideIndex === getSlides.length) {
@@ -61,6 +69,8 @@ const slideShow = (() => {
         getSlides[slideIndex].classList.add('active-slide')
 
         fillDot(slideIndex);
+
+        timer = setTimeout(nextSlide, 5000);
     }
 
     function fillDot(i) {
