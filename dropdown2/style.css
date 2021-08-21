@@ -84,3 +84,58 @@ header {
 .dropdown-content li {
     padding: .5em 0;
 }
+
+.row {
+    margin: 2em 0;
+}
+
+/*Slideshow CSS*/
+.slider-wrap {
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    position: relative;
+    height: 555px;
+}
+
+.prev-arrow, .next-arrow {
+    font-weight: 700;
+    font-size: 2em;
+    position: absolute;
+    top: 50%;
+    cursor: pointer;
+    z-index: 100;
+    color: #fff;
+}
+
+.next-arrow {
+    right: 0;
+}
+
+.slide{
+    max-width: 1200px;
+    display: none;
+}
+
+.active-slide {
+    display: block;
+}
+
+.dot-section {
+    display: flex;
+    justify-content: center;
+}
+
+.dot {
+    width: 1.5em;
+    height: 1.5em;
+    border-radius: 50%;
+    border: 3px solid #aaa;
+    display: inline-block;
+    margin: 1em .5em;
+    cursor: pointer;
+}
+
+.active-dot {
+    background-color: #aaa;
+}
