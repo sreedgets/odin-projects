@@ -75,6 +75,7 @@ header {
     border: 1px solid red;
     margin-top: .5em;
     display: none;
+    z-index: 100;
 }
 
 .visible {
