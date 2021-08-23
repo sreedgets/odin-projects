@@ -7,6 +7,9 @@ const dropdownMenu = (() => {
     });
 
     function togDrop() {
+        getDropdowns.forEach(menu => {
+            menu.nextElementSibling.classList.remove('visible');
+        });
         this.nextElementSibling.classList.toggle('visible');
     }
 })();
