@@ -1,4 +1,39 @@
 {
     "monsterName" : "Goblin",
-    "creatureType" : "Humanoid"
+    "creatureType" : "Humanoid",
+    "attributes" : {
+        "strength" : {
+            "score" : "8",
+            "bonus" : "-1",
+            "proficiency" : "false" 
+        },
+        "dexterity" : {
+            "score" : "14",
+            "bonus" : "+2",
+            "proficiency" : "true"
+        },
+        "constitution" : {
+            "score" : "10",
+            "bonus" : "0",
+            "proficiency" : "false"
+        },
+        "intelligence" : {
+            "score" : "10",
+            "bonus" : "0",
+            "proficiency" : "false"
+        },
+        "wisdom" : {
+            "score" : "8",
+            "bonus" : "-1",
+            "proficiency" : "false"
+        },
+        "charisma" : {
+            "score" : "8",
+            "bonus" : "-1",
+            "proficiency" : "false"
+        }
+    },
+    "skills" : ["stealth"],
+    "languages" : ["common", "goblin"],
+    "abilities" : ["nimble escape"]
 }
